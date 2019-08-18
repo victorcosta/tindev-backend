@@ -1,12 +1,16 @@
 const express =  require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const routes = require('./routes');
 
 const app  = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server); 
+
+dotenv.config();
+
 
 const connectedUsers = {}
 
@@ -16,7 +20,7 @@ io.on('connection', socket => {
 
 });
 
-mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-9gmtq.mongodb.net/omnistack8?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
 });
 
